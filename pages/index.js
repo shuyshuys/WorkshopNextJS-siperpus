@@ -51,6 +51,7 @@ export default function Home() {
 
   useEffect(() => {
     getBukuList()
+    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
 
