@@ -32,10 +32,9 @@ function UbahBuku() {
           console.error
         }
       }
-
       getBukuListById()
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[])
 
   const handleUpdate = async (e) => {
