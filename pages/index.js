@@ -81,23 +81,22 @@ export default function Home() {
               </thead>
               <tbody>
                 {buku.map((data) => (
-                <tr className='hover:bg-sky-200'>
-                  <td className='border px-6 py-2'>{data.namaBuku}</td>
-                  <td className='border px-6 py-2'>{data.pengarang}</td>
-                  <td className='border px-6 py-2'>{data.deskripsiBuku}</td>
-                  <td className='border px-6 py-2'>{data.tahunTerbit}</td>
-                  <td className='flex border px-6 py-2'>
-                    <span onClick={() => { updateBookHandler(data.id); }} className='cursor-pointer h-8 w-8 mr-2 hover:text-sky-500'>
-                      <IkonUbah />
-                    </span>
-                    <span className='cursor-pointer h-8 w-8 mr-2 hover:text-red-500'
-                    onClick={ () => {
-                      deleteBuku(data.id)}}
-                    >
-                      <IkonDelete />
-                    </span>
-                  </td>
-                </tr>
+                  <tr className='hover:bg-sky-200' key={data.id}>
+                    <td className='border px-6 py-2'>{data.namaBuku}</td>
+                    <td className='border px-6 py-2'>{data.pengarang}</td>
+                    <td className='border px-6 py-2'>{data.deskripsiBuku}</td>
+                    <td className='border px-6 py-2'>{data.tahunTerbit}</td>
+                    <td className='flex border px-6 py-2'>
+                      <span className='cursor-pointer h-8 w-8 mr-2 hover:text-sky-500'
+                       onClick={() => { updateBookHandler(data.id); }}>
+                        <IkonUbah />
+                      </span>
+                      <span className='cursor-pointer h-8 w-8 mr-2 hover:text-red-500'
+                        onClick={() => {deleteBuku(data.id)}}>
+                        <IkonDelete />
+                      </span>
+                    </td>
+                  </tr>
                 ))}
               </tbody>
             </table>
