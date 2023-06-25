@@ -95,7 +95,7 @@ export default function Home() {
             {/* input */}
             <div className='relative text-gray-600'>
               <input
-                title='by title and author'
+                title='by title or author'
                 type='search'
                 className='bg-fuchsia-100 h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border border-fuchsia-400'
                 onChange={(e) => setSearch(e.target.value)}
