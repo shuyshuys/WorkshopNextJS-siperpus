@@ -34,14 +34,14 @@ const TambahBuku = () => {
           {/* Judul */}
           <div className='mb-5'>
             <h3 className='text-2xl font-bold'>
-              Form Tambah Buku
+              Add Book Form
             </h3>
           </div>
           {/* Form */}
           <div>
             <form onSubmit={submitHandler}>
               <div className='mb-5'>
-                <label className='block mb-1 font-bold text-gray-500'>Nama Buku</label>
+                <label className='block mb-1 font-bold text-gray-500'>Name of Book</label>
                 <input type='text' className='w-full border border-gray-500 rounded-md px-4 py-2 focus:outline-none' 
                 onChange={(e) => {
                   setNamaBuku(e.target.value)
@@ -50,7 +50,7 @@ const TambahBuku = () => {
                 />
               </div>
               <div className='mb-5'>
-                <label className='block mb-1 font-bold text-gray-500'>Pengarang</label>
+                <label className='block mb-1 font-bold text-gray-500'>Author</label>
                 <input type='text' className='w-full border border-gray-500 rounded-md px-4 py-2 focus:outline-none'
                 onChange={(e) => {
                   setPengarang(e.target.value)
@@ -59,7 +59,7 @@ const TambahBuku = () => {
                 />
               </div>
               <div className='mb-5'>
-                <label className='block mb-1 font-bold text-gray-500'>Deskripsi Buku</label>
+                <label className='block mb-1 font-bold text-gray-500'>Description of Book</label>
                 <textarea className='w-full border border-gray-500 rounded-md px-4 py-2 focus:outline-none' 
                 onChange={(e) => {
                   setDeskripsiBuku(e.target.value)
@@ -68,7 +68,7 @@ const TambahBuku = () => {
                 />
               </div>
               <div className='mb-5'>
-                <label className='block mb-1 font-bold text-gray-500'>Tahun Terbit</label>
+                <label className='block mb-1 font-bold text-gray-500'>Year of Publication</label>
                 <input type='number' className='w-full border border-gray-500 rounded-md px-4 py-2 focus:outline-none' 
                 onChange={(e) => {
                   setTahunTerbit(e.target.value)
@@ -78,7 +78,7 @@ const TambahBuku = () => {
               </div>
               <div className='flex justify-end'>
                 <button className='bg-fuchsia-500 text-white px-6 py-2 rounded-full hover:bg-fuchsia-700'>
-                  Simpan
+                  Save
                 </button>
               </div>
             </form>

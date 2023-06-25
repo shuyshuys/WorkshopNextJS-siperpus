@@ -78,7 +78,7 @@ export default function Home() {
           {/* {Judul} */}
           <div className='mt-10 mb-5'>
             <h3 className='text-2xl font-semibold'>
-              Data Buku Perpustakaan
+              Library Books Data
             </h3>
           </div>
           {/* {Add Book} */}
