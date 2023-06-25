@@ -66,7 +66,7 @@ export default function Home() {
               Data Buku Perpustakaan
             </h3>
           </div>
-          <button onClick={addBookHandler} className='bg-sky-500 text-white px-6 py-2 rounded-full'>
+          <button onClick={addBookHandler} className='bg-fuchsia-600 text-white px-6 py-2 rounded-full'>
             Tambah Buku
           </button>
           {/* {Search} */}
@@ -76,10 +76,10 @@ export default function Home() {
               <input
                 title='by title and author'
                 type='search'
-                className='bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none'
+                className='bg-fuchsia-100 h-10 px-5 pr-10 rounded-full text-sm focus:outline-none'
                 onChange={(e) => setSearch(e.target.value)}
                 name='search' placeholder='Type to search' />
-              <button type='submit' className='absolute right-3 top-0 mt-3 mr-4'>
+              <button type='submit' className='absolute right-0 top-0 mt-3 mr-4'>
                 <svg className='h-4 w-4 fill-current' xmlns='http://www.w3.org/2000/svg' version='1.1' id='Capa_1' x='0px' y='0px' viewBox='0 0 56.966 56.966' width='512px' height='512px'>
                   <path
                     d='M55.146,51.075L41.29,37.219c3.479-3.971,5.576-9.013,5.576-14.514C46.866,8.23,38.636,0,28.433,0
@@ -91,8 +91,8 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <div className='mt-5'>
-            <table className='table-auto bg-sky-50 py-10 rounded-xl'>
+          <div className='mt-2 mx-auto max-w-screen-lg overflow-x-auto'>
+            <table className='table-auto bg-fuchsia-50 py-10 rounded-xl'>
               <thead className='border-b-4'>
                 <tr>
                   <th className='border px-6 py-2'>Name of Book</th>
@@ -103,7 +103,8 @@ export default function Home() {
                 </tr>
               </thead>
               <tbody>
-                {buku
+                {buku.length >= 1 ? (
+                  buku
                   .filter((data) =>
                   // data.namaBuku.toLowerCase().includes(search)
                   {
@@ -115,13 +116,13 @@ export default function Home() {
                   }
                   )
                   .map((data) => (
-                    <tr className='hover:bg-sky-200' key={data.id}>
+                    <tr className='hover:bg-fuchsia-200' key={data.id}>
                       <td className='border px-6 py-2'>{data.namaBuku}</td>
                       <td className='border px-6 py-2'>{data.pengarang}</td>
-                      <td className='border px-6 py-2'>{data.deskripsiBuku}</td>
+                      <td className='border px-6 py-2 '>{data.deskripsiBuku}</td>
                       <td className='border px-6 py-2'>{data.tahunTerbit}</td>
                       <td className='flex border px-6 py-2'>
-                        <span className='cursor-pointer h-8 w-8 mr-2 hover:text-sky-500'
+                        <span className='cursor-pointer h-8 w-8 mr-2 hover:text-fuchsia-500'
                           onClick={() => { updateBookHandler(data.id); }}>
                           <IkonUbah />
                         </span>
@@ -131,7 +132,16 @@ export default function Home() {
                         </span>
                       </td>
                     </tr>
-                  ))}
+                  ))
+  ) : (
+                    <tr>
+                      <td colSpan={5} className='border text-center p-5'>
+                        No Data Found
+                      </td>
+                    </tr>
+
+  )
+                  }
               </tbody>
             </table>
           </div>
