@@ -32,11 +32,19 @@ export default function Home() {
 
   const bukuCollectionRef = collection(db, 'buku')
   // sort data
-  const q = query(bukuCollectionRef, orderBy('namaBuku', 'asc'))
+  const sortByNamaBuku = query(bukuCollectionRef, orderBy('namaBuku', 'asc'))
+  const sortByTahunTerbit = query(bukuCollectionRef, orderBy('tahunTerbit', 'desc'))
 
-  const getBukuList = async () => {
+  const getBukuList = async (selectedOption) => {
     try {
-      const data = await getDocs(q)
+      let queryToUse;
+      if (selectedOption === "namaBuku") {
+        queryToUse = sortByNamaBuku;
+      } else if (selectedOption === "tahunTerbit") {
+        queryToUse = sortByTahunTerbit;
+      }
+
+      const data = await getDocs(queryToUse)
       const fiilteredData = data.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -50,8 +58,15 @@ export default function Home() {
     }
   }
 
+  function handleSortOptionChange() {
+    const selectElement = document.getElementById("sortOption");
+    const selectedOption = selectElement.value;
+  
+    getBukuList(selectedOption);
+  }
+
   useEffect(() => {
-    getBukuList()
+    handleSortOptionChange()
     //eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -66,17 +81,23 @@ export default function Home() {
               Data Buku Perpustakaan
             </h3>
           </div>
+          {/* {Add Book} */}
           <button onClick={addBookHandler} className='bg-fuchsia-600 text-white px-6 py-2 rounded-full'>
-            Tambah Buku
+            Add Book
           </button>
           {/* {Search} */}
           <div className='flex items-center justify-end'>
+            {/* Sort by Select */}
+            <select id="sortOption" onChange={handleSortOptionChange} className="border border-fuchsia-400 rounded-full py-2 px-4 m-2 bg-fuchsia-100">
+              <option value="namaBuku">Sort by Name</option>
+              <option value="tahunTerbit">Sort by Year Published</option>
+            </select>
             {/* input */}
             <div className='relative text-gray-600'>
               <input
                 title='by title and author'
                 type='search'
-                className='bg-fuchsia-100 h-10 px-5 pr-10 rounded-full text-sm focus:outline-none'
+                className='bg-fuchsia-100 h-10 px-5 pr-10 rounded-full text-sm focus:outline-none border border-fuchsia-400'
                 onChange={(e) => setSearch(e.target.value)}
                 name='search' placeholder='Type to search' />
               <button type='submit' className='absolute right-0 top-0 mt-3 mr-4'>
@@ -105,43 +126,43 @@ export default function Home() {
               <tbody>
                 {buku.length >= 1 ? (
                   buku
-                  .filter((data) =>
-                  // data.namaBuku.toLowerCase().includes(search)
-                  {
-                    const searchWords = search.toLowerCase().split(" ");
-                    return searchWords.every((word) =>
-                      data.namaBuku.toLowerCase().includes(word) ||
-                      data.pengarang.toLowerCase().includes(word)
-                    );
-                  }
-                  )
-                  .map((data) => (
-                    <tr className='hover:bg-fuchsia-200' key={data.id}>
-                      <td className='border px-6 py-2'>{data.namaBuku}</td>
-                      <td className='border px-6 py-2'>{data.pengarang}</td>
-                      <td className='border px-6 py-2 '>{data.deskripsiBuku}</td>
-                      <td className='border px-6 py-2'>{data.tahunTerbit}</td>
-                      <td className='flex border px-6 py-2'>
-                        <span className='cursor-pointer h-8 w-8 mr-2 hover:text-fuchsia-500'
-                          onClick={() => { updateBookHandler(data.id); }}>
-                          <IkonUbah />
-                        </span>
-                        <span className='cursor-pointer h-8 w-8 mr-2 hover:text-red-500'
-                          onClick={() => { deleteBuku(data.id) }}>
-                          <IkonDelete />
-                        </span>
-                      </td>
-                    </tr>
-                  ))
-  ) : (
-                    <tr>
-                      <td colSpan={5} className='border text-center p-5'>
-                        No Data Found
-                      </td>
-                    </tr>
+                    .filter((data) =>
+                    // data.namaBuku.toLowerCase().includes(search)
+                    {
+                      const searchWords = search.toLowerCase().split(" ");
+                      return searchWords.every((word) =>
+                        data.namaBuku.toLowerCase().includes(word) ||
+                        data.pengarang.toLowerCase().includes(word)
+                      );
+                    }
+                    )
+                    .map((data) => (
+                      <tr className='hover:bg-fuchsia-200' key={data.id}>
+                        <td className='border px-6 py-2'>{data.namaBuku}</td>
+                        <td className='border px-6 py-2'>{data.pengarang}</td>
+                        <td className='border px-6 py-2 '>{data.deskripsiBuku}</td>
+                        <td className='border px-6 py-2'>{data.tahunTerbit}</td>
+                        <td className='flex border px-6 py-2'>
+                          <span className='cursor-pointer h-8 w-8 mr-2 hover:text-fuchsia-500'
+                            onClick={() => { updateBookHandler(data.id); }}>
+                            <IkonUbah />
+                          </span>
+                          <span className='cursor-pointer h-8 w-8 mr-2 hover:text-red-500'
+                            onClick={() => { deleteBuku(data.id) }}>
+                            <IkonDelete />
+                          </span>
+                        </td>
+                      </tr>
+                    ))
+                ) : (
+                  <tr>
+                    <td colSpan={5} className='border text-center p-5'>
+                      No Data Found
+                    </td>
+                  </tr>
 
-  )
-                  }
+                )
+                }
               </tbody>
             </table>
           </div>
